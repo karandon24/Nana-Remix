@@ -101,7 +101,7 @@ if ENV:
     USERBOT_NOLOAD = os.environ.get("USERBOT_NOLOAD", "").split()
     ASSISTANT_LOAD = os.environ.get("ASSISTANT_LOAD", "").split()
     ASSISTANT_NOLOAD = os.environ.get("ASSISTANT_NOLOAD", "").split()
-
+    DB_URI = os.environ.get('DB_URI')
     DATABASE_URL = os.environ.get('DATABASE_URL', "postgres://username:password@localhost:5432/database")
     ASSISTANT_BOT_TOKEN = os.environ.get('ASSISTANT_BOT_TOKEN', None)
     AdminSettings = list(int(x) for x in os.environ.get("AdminSettings", "").split())
@@ -154,6 +154,7 @@ else:
     ASSISTANT_NOLOAD = Config.ASSISTANT_NOLOAD
 
     DATABASE_URL = Config.DATABASE_URL
+    DB_URI = Config.DB_URI
     ASSISTANT_BOT_TOKEN = Config.ASSISTANT_BOT_TOKEN
     AdminSettings = Config.AdminSettings
     REMINDER_UPDATE = Config.REMINDER_UPDATE
