@@ -19,6 +19,7 @@ pyDownload
 pillow
 gtts
 gitpython
+simplejson
 pafy
 youtube_dl==2020.2.16
 googletrans
