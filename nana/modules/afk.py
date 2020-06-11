@@ -51,7 +51,7 @@ async def afk(client, message):
     await message.stop_propagation()
 
 
-@app.on_message(Filters.mentioned & ~Filters.bot, group=11)
+@app.on_message(Filters.private & Filters.mentioned & ~Filters.bot, group=11)
 async def afk_mentioned(client, message):
     if not DB_AVAIABLE:
         return
