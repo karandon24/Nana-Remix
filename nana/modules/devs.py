@@ -83,6 +83,25 @@ async def aexec(client, message, code):
     # Get `__ex` from local variables, call it and return the result
     return await locals()['__ex'](client, message)
 
+@app.on_message(Filters.me & Filters.command(["dns"], Command))
+async def dns(client, message):
+    cmd = message.command
+    text = ""
+    if len(cmd) > 1:
+        text = " ".join(cmd[1:])
+    elif message.reply_to_message and len(cmd) == 1:
+        text = message.reply_to_message.text
+    elif not message.reply_to_message and len(cmd) == 1:
+        await message.edit("`cant get dns list.`")
+        await asyncio.sleep(2)
+        await message.delete()
+        return
+    sample_url = "https://da.gd/dns/{}".format(text)
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await message.edit("DNS records of {} are \n{}".format(text, response_api))
+    else:
+        await message.edit("i can't seem to find {} on the internet".format(text))
 
 @app.on_message(Filters.me & Filters.command(["exec"], Command))
 async def executor(client, message):
