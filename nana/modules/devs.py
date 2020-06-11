@@ -5,6 +5,7 @@ import subprocess
 import sys
 import traceback
 from platform import python_version
+import asyncio
 
 import requests
 from pyrogram import Filters
