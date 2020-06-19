@@ -5,7 +5,6 @@ import subprocess
 import sys
 import traceback
 from platform import python_version
-import asyncio
 
 import requests
 from pyrogram import Filters
@@ -77,32 +76,13 @@ async def pic(chat, photo, caption=None):
 async def aexec(client, message, code):
     # Make an async function with the code and `exec` it
     exec(
-        f'async def __ex(client, message): ' +
+        'async def __ex(client, message): ' +
         ''.join(f'\n {l}' for l in code.split('\n'))
     )
 
     # Get `__ex` from local variables, call it and return the result
     return await locals()['__ex'](client, message)
 
-@app.on_message(Filters.me & Filters.command(["dns"], Command))
-async def dns(client, message):
-    cmd = message.command
-    text = ""
-    if len(cmd) > 1:
-        text = " ".join(cmd[1:])
-    elif message.reply_to_message and len(cmd) == 1:
-        text = message.reply_to_message.text
-    elif not message.reply_to_message and len(cmd) == 1:
-        await message.edit("`cant get dns list.`")
-        await asyncio.sleep(2)
-        await message.delete()
-        return
-    sample_url = "https://da.gd/dns/{}".format(text)
-    response_api = requests.get(sample_url).text
-    if response_api:
-        await message.edit("DNS records of {} are \n{}".format(text, response_api))
-    else:
-        await message.edit("i can't seem to find {} on the internet".format(text))
 
 @app.on_message(Filters.me & Filters.command(["exec"], Command))
 async def executor(client, message):
@@ -119,10 +99,12 @@ async def executor(client, message):
         await message.edit("**Execute**\n`{}`\n\n**Failed:**\n```{}```".format(code, "".join(errors)))
         logging.exception("Execution error")
 
+
 @app.on_message(Filters.me & Filters.command(["ip"], Command))
-async def public_ip(client, message):
+async def public_ip(_client, message):
     ip = requests.get('https://api.ipify.org').text
     await message.edit(f'<code>{ip}</code>', parse_mode='html')
+
 
 @app.on_message(Filters.me & Filters.command(["cmd"], Command))
 async def terminal(client, message):
@@ -186,15 +168,14 @@ async def terminal(client, message):
 
 
 @app.on_message(Filters.me & Filters.command(["log"], Command))
-async def log(client, message):
+async def log(_client, message):
     f = open("nana/logs/error.log", "r")
     data = await deldog(message, f.read())
     await message.edit("`Your recent logs stored here : `{}".format(data))
 
 
 @app.on_message(Filters.me & Filters.command(["dc"], Command))
-async def dc_id(client, message):
-    chat = message.chat
+async def dc_id(_client, message):
     user = message.from_user
     if message.reply_to_message:
         if message.reply_to_message.forward_from:
@@ -224,14 +205,14 @@ async def dc_id(client, message):
 
 
 @app.on_message(Filters.me & Filters.command(["repo"], Command))
-async def repo(client, message):
+async def repo(_client, message):
     await message.edit(
         "Click [here](https://github.com/pokurt/Nana-Bot) for Nana-Bot-Remix Source.\nClick [here](https://github.com/legenhand/Nana-Bot) to open Nana-Bot GitHub page.\nClick [here](https://t.me/nanabotsupport) for support Group",
         disable_web_page_preview=True)
 
 
 @app.on_message(Filters.me & Filters.command(["alive"], Command))
-async def alive(client, message):
+async def alive(_client, message):
     try:
         me = await app.get_me()
     except ConnectionError:
@@ -253,7 +234,7 @@ async def alive(client, message):
     await message.edit(text)
 
 @app.on_message(Filters.me & Filters.command(["id"], Command))
-async def get_id(client, message):
+async def get_id(_client, message):
     file_id = None
     user_id = None
 
@@ -293,7 +274,7 @@ async def get_id(client, message):
 
 
 @app.on_message(Filters.me & Filters.command(["speedtest"], Command))
-async def speedtest(client, message):
+async def speedtest(_client, message):
     await message.edit("`Running speed test . . .`")
     test = Speedtest()
     test.get_best_server()

@@ -1,12 +1,15 @@
 import logging
 import os
 import sys
+import time
 
 from pydrive.auth import GoogleAuth
 from pyrogram import Client, errors
 from sqlalchemy import create_engine, exc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
+
+StartTime = time.time()
 
 # Postgresql
 
@@ -104,7 +107,7 @@ if ENV:
 
     DATABASE_URL = os.environ.get('DATABASE_URL', "postgres://username:password@localhost:5432/database")
     ASSISTANT_BOT_TOKEN = os.environ.get('ASSISTANT_BOT_TOKEN', None)
-    AdminSettings = list(int(x) for x in os.environ.get("AdminSettings", "").split())
+    AdminSettings = [int(x) for x in os.environ.get("AdminSettings", "").split()]
     REMINDER_UPDATE = bool(os.environ.get('REMINDER_UPDATE', True))
     TEST_MODE = bool(os.environ.get('TEST_MODE', False))
 else:

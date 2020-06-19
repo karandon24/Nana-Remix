@@ -1,33 +1,27 @@
-import pyrogram
-import os
-import random
 import re
-import textwrap
-import requests
-import shutil
-import math
-import time
-from difflib import get_close_matches
 
 from nana import app, setbot, Command, Owner, OwnerName, BotUsername, AdminSettings, DB_AVAIABLE, lydia_api
-from pyrogram import errors, Filters, InlineKeyboardMarkup, InputTextMessageContent, InlineKeyboardButton
-from nana.modules import lydia
+from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton
 
 from nana.helpers.parser import mention_markdown
 
 if DB_AVAIABLE:
-	from nana.modules.database.pm_db import set_whitelist, get_whitelist, set_req, get_req
+	from nana.modules.database.pm_db import set_whitelist, get_whitelist, set_req, get_req, del_whitelist
 
 welc_txt = """Hello, Hello, i am Nana,
 Just say what do you want by this button 👇👍"""
 
-NOTIFY_ID = 962286971 # Owner
+NOTIFY_ID = 972694835 # Owner
 BLACKLIST = ["hack", "fuck", "bitch"]
 
 USER_IN_RESTRICT = []
+
+
 @app.on_message(~Filters.user("self") & Filters.private & ~Filters.bot)
 async def pm_block(client, message):
+	print("test1")
 	if not get_whitelist(message.chat.id):
+		print("test2")
 		await client.read_history(message.chat.id)
 		if message.text:
 			for x in message.text.lower().split():
@@ -36,6 +30,7 @@ async def pm_block(client, message):
 					await client.block_user(message.chat.id)
 					return
 		from nana.modules.lydia import lydia_status
+		print(get_req(message.chat.id))
 		if not get_req(message.chat.id):
 			await message.reply(welc_txt)
 			result = await client.get_inline_bot_results(BotUsername, "engine_pm")
@@ -49,13 +44,13 @@ async def pm_block(client, message):
 			result = await client.send_inline_bot_result(message.chat.id, query_id=result.query_id, result_id=result.results[0].id, hide_via=True)
 
 @app.on_message(Filters.me & Filters.command(["approvepm"], Command) & Filters.private)
-async def approve_pm(client, message):
+async def approve_pm(_client, message):
 	set_whitelist(message.chat.id, True)
 	await message.edit("PM permission was approved!")
 
 @app.on_message(Filters.me & Filters.command(["revokepm", "disapprovepm"], Command) & Filters.private)
-async def revoke_pm_block(client, message):
-	set_whitelist(message.chat.id, False)
+async def revoke_pm_block(_client, message):
+	del_whitelist(message.chat.id)
 	await message.edit("PM permission was revoked!")
 
 def pm_button_callback(_, query):
@@ -75,12 +70,9 @@ async def pm_button(client, query):
 		await app.block_user(query.from_user.id)
 	elif re.match(r"engine_pm_nope", query.data):
 		await setbot.edit_inline_text(query.inline_message_id, "👍")
-		await app.send_message(query.from_user.id, "Hello, please wait for a reply from my master\nI've notify my master to reply your PM, thank you")
-		await setbot.send_message(NOTIFY_ID, "Hi [{}](tg://user?id={}), {} want to contact you~".format(OwnerName, Owner, mention_markdown(query.from_user.id, query.from_user.first_name)), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Approve", callback_data="engine_pm_apr-{}".format(query.from_user.id)), InlineKeyboardButton("Block", callback_data="engine_pm_blk-{}".format(query.from_user.id))]]))
+		await app.send_message(query.from_user.id, "Hello, please wait for a reply from me,\nthank you")
+		await setbot.send_message(NOTIFY_ID, f"Hi [{OwnerName}](tg://user?id={Owner}), {mention_markdown(query.from_user.id, query.from_user.first_name)} want to contact you~", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Approve", callback_data=f"engine_pm_apr-{query.from_user.id}"), InlineKeyboardButton("Block", callback_data=f"engine_pm_blk-{query.from_user.id}")]]))
 		set_req(query.from_user.id, True)
-		from nana.modules.lydia import lydia_status
-		if lydia_status:
-			await app.send_message(query.from_user.id, "During the wait for permission from my master, why do not we have a little chat?")
 	elif re.match(r"engine_pm_report", query.data):
 		await setbot.edit_inline_text(query.inline_message_id, "👍")
 		await app.send_message(query.from_user.id, "Hello, if you want to report any bugs for my bots, please report in @NanaBotSupport\nThank you")
@@ -92,7 +84,7 @@ async def pm_button(client, query):
 		await app.send_message(query.from_user.id, "Cool, thank you for donate me\nYou can select payment in here https://ayrahikari.github.io/donations.html\n\nIf you've donated me, please PM me again, thanks")
 	elif re.match(r"engine_pm_apr", query.data):
 		target = query.data.split("-")[1]
-		await query.message.edit_text("[Approved for PM]({})".format(target))
+		await query.message.edit_text(f"[Approved for PM]({target})")
 		await app.send_message(target, "Hello, this is Nana, my master approved you to PM.")
 		set_whitelist(int(target), True)
 	elif re.match(r"engine_pm_blk", query.data):

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, UnicodeText
+from sqlalchemy import Column, String
 
 from nana import BASE, SESSION
 
@@ -47,8 +47,20 @@ def set_whitelist(user_id, username):
         
         SESSION.add(user)
         SESSION.commit()
-        
-        
+
+
+def del_whitelist(user_id):
+
+    with INSERTION_LOCK:
+        user = SESSION.query(WhitelistUsers).get(str(user_id))
+        if user:
+            SESSION.delete(user)
+            SESSION.commit()
+        else:
+            SESSION.close()
+            return False
+
+
 def get_whitelist(user_id):
     user = SESSION.query(WhitelistUsers).get(str(user_id))
     rep = ""

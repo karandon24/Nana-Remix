@@ -23,7 +23,7 @@ Powered by CoffeeHouse API created by @Intellivoid.
 """
 
 @app.on_message(Filters.me & Filters.command(["lydiapv"], Command))
-async def lydia_private(client, message):
+async def lydia_private(_client, message):
     global lydia_status, coffeehouse_api, lydia, session
     if lydia_api == "":
         await message.edit("`lydia API key is not set!\nSet your lydia API key by adding Config Vars in heroku with "
@@ -49,11 +49,11 @@ async def lydia_private(client, message):
         await message.edit("now Lydia will reply your message!")
 
 
-@app.on_message(Filters.incoming & Filters.private)
-async def lydia_reply(client, message):
-    global lydia_status, session
-    if lydia_status:
-        output = session.think_thought(message.text)
-        await message.reply_text("`{0}`".format(output), quote=True, reply_to_message_id=ReplyCheck(message))
-    else:
-        return
+# @app.on_message(Filters.incoming & Filters.private)
+# async def lydia_reply(_client, message):
+#     global lydia_status, session
+#     if lydia_status:
+#         output = session.think_thought(message.text)
+#         await message.reply_text("`{0}`".format(output), quote=True, reply_to_message_id=ReplyCheck(message))
+#     else:
+#         return
