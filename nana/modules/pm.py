@@ -71,7 +71,7 @@ async def pm_button(client, query):
 	elif re.match(r"engine_pm_nope", query.data):
 		await setbot.edit_inline_text(query.inline_message_id, "👍")
 		await app.send_message(query.from_user.id, "Hello, please wait for a reply from my master\nI've notify my master to reply your PM, thank you")
-		await setbot.send_message(NOTIFY_ID, "Hi [{}](tg://user?id={}), {} want to contact you~".format(OwnerName, Owner, mention_markdown(query.from_user.id, query.from_user.first_name)), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Approve", callback_data="engine_pm_apr-{}".format(query.from_user.id)), InlineKeyboardButton("Block", callback_data="engine_pm_blk-{}".format(query.from_user.id))]]))
+		await setbot.send_message(NOTIFY_ID, f"Hi [{OwnerName}](tg://user?id={Owner}), {mention_markdown(query.from_user.id, query.from_user.first_name)} want to contact you~", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Approve", callback_data=f"engine_pm_apr-{query.from_user.id}"), InlineKeyboardButton("Block", callback_data=f"engine_pm_blk-{query.from_user.id}")]]))
 		set_req(query.from_user.id, True)
 		from nana.modules.lydia import lydia_status
 		if lydia_status:
@@ -87,7 +87,7 @@ async def pm_button(client, query):
 		await app.send_message(query.from_user.id, "Cool, thank you for donate me\nYou can select payment in here https://ayrahikari.github.io/donations.html\n\nIf you've donated me, please PM me again, thanks")
 	elif re.match(r"engine_pm_apr", query.data):
 		target = query.data.split("-")[1]
-		await query.message.edit_text("[Approved for PM]({})".format(target))
+		await query.message.edit_text(f"[Approved for PM]({target})")
 		await app.send_message(target, "Hello, this is Nana, my master approved you to PM.")
 		set_whitelist(int(target), True)
 	elif re.match(r"engine_pm_blk", query.data):
