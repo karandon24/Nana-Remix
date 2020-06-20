@@ -11,7 +11,7 @@ if DB_AVAIABLE:
 welc_txt = f"""Hello, i am Nana, {TG_USERNAME}'s Userbot.
 Just say what do you want by this button 👇👍"""
 
-NOTIFY_ID =  AdminSettings
+NOTIFY_ID =  Owner
 BLACKLIST = ["hack", "fuck", "bitch"]
 
 USER_IN_RESTRICT = []
