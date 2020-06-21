@@ -6,7 +6,7 @@ from pyrogram import Filters
 
 from nana import app, Command, thumbnail_API, screenshotlayer_API
 
-__MODULE__ = "Screenshot Website"
+__MODULE__ = "SS Website"
 __HELP__ = """
 Take a picture of website. You can select one for use this.
 

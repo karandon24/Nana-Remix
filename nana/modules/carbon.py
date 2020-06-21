@@ -11,7 +11,7 @@ from pyrogram import Filters
 from nana import app, Command
 from nana.helpers.PyroHelpers import ReplyCheck
 
-__MODULE__ = "Carbon API"
+__MODULE__ = "Carbon"
 __HELP__ = """
 Create Beautiful Snippets of your code!
 

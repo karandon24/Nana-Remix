@@ -5,7 +5,7 @@ from pyrogram import Filters
 
 from nana import app, Command
 
-__MODULE__ = "Mega Downloader"
+__MODULE__ = "Mega"
 __HELP__ = """
 Download any file from URL or from telegram
 

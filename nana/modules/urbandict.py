@@ -6,7 +6,7 @@ from pyrogram import Filters
 from nana import app, Command
 from nana.helpers.string import replace_text
 
-__MODULE__ = "Urban Dictionary"
+__MODULE__ = "Urban"
 __HELP__ = """
 Search for urban dictionary
 

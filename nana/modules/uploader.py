@@ -6,7 +6,7 @@ from pyrogram import Filters
 
 from nana import app, Command
 
-__MODULE__ = "Uploader image"
+__MODULE__ = "Uploader"
 __HELP__ = """
 Reupload URL image to telegram without save it first.
 

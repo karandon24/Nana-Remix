@@ -16,7 +16,7 @@ from pyrogram import Filters
 
 from nana import app, Command
 
-__MODULE__ = "Reverse Search"
+__MODULE__ = "Reverse"
 __HELP__ = """
 This module will help you Reverse Ssearch Media from Google
 

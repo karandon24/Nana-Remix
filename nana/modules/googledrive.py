@@ -12,7 +12,7 @@ from nana.helpers.parser import cleanhtml
 from nana.modules.downloads import download_url
 from .downloads import progressdl
 
-__MODULE__ = "Google Drive"
+__MODULE__ = "GDrive"
 __HELP__ = """
 Google Drive stuff, for login just type /gdrive in Assistant bot
 
