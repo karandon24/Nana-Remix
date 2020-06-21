@@ -88,7 +88,7 @@ async def help_button(_client, query):
 
             await query.message.edit(text=text,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton(text="⬅️ Back", callback_data="help_back")]]))
+                                         [[InlineKeyboardButton(text="Back", callback_data="help_back")]]))
 
         elif back_match:
             await query.message.edit(text=HELP_STRINGS,
