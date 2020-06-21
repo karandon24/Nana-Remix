@@ -141,20 +141,3 @@ async def update_button(_client, query):
 
 if REMINDER_UPDATE and not TEST_DEVELOP:
     loop.create_task(update_checker())
-
-
-async def starting_message():
-    start_message = f"Hi {OwnerName},\n"
-    start_message += "Nana is Ready at your Service!\n"
-    start_message += f"===================\n"
-    if DB_AVAIABLE:
-        start_message += f"**Group joined:** `{len(get_all_chats())} groups`\n"
-        start_message += f"**Message received:** `{get_msgc()} messages`\n"
-        start_message += f"===================\n"
-        start_message += f"`For more about the bot press button down below`"
-    buttons = InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Help", callback_data="help_back")]])
-    await setbot.send_photo(Owner, NANA_IMG, caption=start_message, reply_markup=buttons)
-
-
-loop.create_task(starting_message())
