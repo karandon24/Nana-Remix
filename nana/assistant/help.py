@@ -57,7 +57,7 @@ def get_readable_time(seconds: int) -> str:
 async def help_parser(client, chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELP_COMMANDS, "help"))
-    await client.send_message(chat_id, text, reply_markup=keyboard)
+    await client.send_photo(chat_id, NANA_IMG, caption=text, reply_markup=keyboard)
 
 
 @setbot.on_message(Filters.user(AdminSettings) & Filters.command(["help"]))
