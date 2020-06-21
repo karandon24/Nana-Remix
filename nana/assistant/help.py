@@ -4,7 +4,6 @@ import time
 from __main__ import HELP_COMMANDS
 from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton
 
-from nana.modules.database.notes_db import get_all_selfnotes
 from nana import setbot, AdminSettings, Command, BotName, DB_AVAIABLE, StartTime
 from nana.__main__ import get_runtime
 from nana.helpers.misc import paginate_modules
@@ -12,6 +11,7 @@ from nana.modules.chats import get_msgc
 
 if DB_AVAIABLE:
     from nana.modules.database.chats_db import get_all_chats
+    from nana.modules.database.notes_db import get_all_selfnotes
 
 NANA_IMG = "https://telegra.ph/file/2c8278c78c5404cdf0e53.jpg"
 
