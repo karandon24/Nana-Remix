@@ -4,6 +4,7 @@ import time
 from __main__ import HELP_COMMANDS
 from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton
 
+from nana.modules.database.notes_db import get_all_selfnotes
 from nana import setbot, AdminSettings, Command, BotName, DB_AVAIABLE, StartTime
 from nana.__main__ import get_runtime
 from nana.helpers.misc import paginate_modules
@@ -111,8 +112,9 @@ async def help_button(_client, query):
 @setbot.on_message(Filters.user(AdminSettings) & Filters.command(["stats"]))
 async def stats(_client, message):
     text = "**Here is your current stats**\n"
-    text += "Notes: `0 notes`\n"
+    
     if DB_AVAIABLE:
+        text += "Notes: `{} notes`\n".format(len(get_all_selfnotes(message.from_user.id)))
         text += "Group joined: `{} groups`\n".format(len(get_all_chats()))
     text += "Message received: `{} messages`\n".format(get_msgc())
 
