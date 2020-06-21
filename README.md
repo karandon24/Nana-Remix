@@ -31,7 +31,7 @@ A: Because real bot will help you a lot for many things, and make user easy to u
 
 ### Installation Guide
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/legenhand/Nana-Bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pokurt/Nana-Remix)
 
 See our wikis to get [Installation Guide](https://sagita.tech/2020/02/02/tutorial-install-userbot-di-linux-server-nana-bot/).
 
@@ -42,3 +42,4 @@ If you some problems, please come join and ask on our Community!
 - [Telegram Userbot](https://github.com/RaphielGang/Telegram-UserBot)
 - [Paperlane Extended](https://github.com/AvinashReddy3108/PaperplaneExtended)
 - [Ayra Hikari](https://github.com/AyraHikari)
+- [LegenHand](https://github.com/legenhand)
