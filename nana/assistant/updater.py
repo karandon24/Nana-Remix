@@ -7,6 +7,7 @@ from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton
 from nana import setbot, Owner, USERBOT_VERSION, ASSISTANT_VERSION, log, OFFICIAL_BRANCH, \
     REPOSITORY, RANDOM_STICKERS, REMINDER_UPDATE, TEST_DEVELOP, HEROKU_API
 from nana.__main__ import restart_all, loop
+from nana.assistant.help import NANA_IMG
 
 
 async def gen_chlog(repo, diff):
@@ -140,9 +141,10 @@ if REMINDER_UPDATE and not TEST_DEVELOP:
 
 
 async def starting_message():
+    start_message = f"Nana is Ready to go!\n**Server Ping:** {0:.2f}s".format(round(ping_time, 2) % 60)
     buttons = InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="❔ Help", callback_data="help_back")]])
-    await setbot.send_message(Owner, "**Nana is ready to go!** 😉", reply_markup=buttons)
+                [[InlineKeyboardButton(text="Help", callback_data="help_back")]])
+    await setbot.send_photo(Owner, NANA_IMG, caption=start_message, reply_markup=buttons)
 
 
 loop.create_task(starting_message())
