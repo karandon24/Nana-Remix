@@ -16,8 +16,8 @@ if DB_AVAIABLE:
 NANA_IMG = "https://telegra.ph/file/2c8278c78c5404cdf0e53.jpg"
 
 HELP_STRINGS = f"""
-Hello! I am {BotName}, your Assistant!
-I can help you for many things.
+You can use {", ".join(Command)} on your userbot to execute that commands.
+Here is current modules you have
 
 **Main** commands available:
  - /start: get your bot status
@@ -25,9 +25,6 @@ I can help you for many things.
  - /settings: settings your userbot
  - /getme: get your userbot profile info
  - /help: get all modules help
-
-You can use {", ".join(Command)} on your userbot to execute that commands.
-Here is current modules you have
 """
 
 
