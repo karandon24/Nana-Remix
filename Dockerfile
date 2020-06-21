@@ -14,11 +14,8 @@ RUN apt update && apt upgrade -y && \
     bzip2 \
     curl \
     figlet \
-    gcc \
     git \
-    sudo \
     util-linux \
-    chromium \
     libffi-dev \
     libjpeg-dev \
     libjpeg62-turbo-dev \
@@ -55,17 +52,9 @@ RUN apt update && apt upgrade -y && \
     zlib1g \
     ffmpeg \
     libssl-dev \
-    cmake \
-    make \
-    g++ \
     libopus0 \
     libopus-dev \
-    pkg-config \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
-
-# Setting up ENV Path for Chrom-bin and Chrome-Path
-ENV CHROME_BIN=/usr/bin/chromium-browser \
-    CHROME_PATH=/usr/lib/chromium/
 
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
