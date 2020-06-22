@@ -24,7 +24,7 @@ Here is current modules you have
  - /stats: get your userbot status
  - /settings: settings your userbot
  - /getme: get your userbot profile info
- - /help: get all modules help
+ - /help: get this menu
 """
 
 
