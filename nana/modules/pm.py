@@ -1,11 +1,11 @@
 import re
 
-from nana import app, setbot, Command, Owner, OwnerName, BotUsername, AdminSettings, DB_AVAIABLE, lydia_api, AdminSettings, OwnerName
+from nana import app, setbot, Command, Owner, OwnerName, BotUsername, AdminSettings, DB_AVAILABLE, lydia_api, AdminSettings, OwnerName
 from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton
 
 from nana.helpers.parser import mention_markdown
 
-if DB_AVAIABLE:
+if DB_AVAILABLE:
 	from nana.modules.database.pm_db import set_whitelist, get_whitelist, set_req, get_req, del_whitelist
 
 welc_txt = f"""Hello, I'm {OwnerName}'s Userbot.

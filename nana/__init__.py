@@ -110,7 +110,6 @@ if ENV:
     AdminSettings = [int(x) for x in os.environ.get("AdminSettings", "").split()]
     REMINDER_UPDATE = bool(os.environ.get('REMINDER_UPDATE', True))
     TEST_MODE = bool(os.environ.get('TEST_MODE', False))
-    TG_USERNAME = os.environ.get('TG_USERNAME', None)
 else:
     # logger
     logger = Config.LOGGER
@@ -127,7 +126,6 @@ else:
     # Session
     USERBOT_SESSION = Config.USERBOT_SESSION
     ASSISTANT_SESSION = Config.ASSISTANT_SESSION
-    TG_USERNAME = Config.TG_USERNAME
     # Required for some features
     # Set temp var for load later
     Owner = 0
@@ -186,21 +184,21 @@ if USERBOT_SESSION and ASSISTANT_SESSION:
 
 gauth = GoogleAuth()
 
-DB_AVAIABLE = False
+DB_AVAILABLE = False
 BOTINLINE_AVAIABLE = False
 
 
 # Postgresql
 def mulaisql() -> scoped_session:
-    global DB_AVAIABLE
+    global DB_AVAILABLE
     engine = create_engine(DATABASE_URL, client_encoding="utf8")
     BASE.metadata.bind = engine
     try:
         BASE.metadata.create_all(engine)
     except exc.OperationalError:
-        DB_AVAIABLE = False
+        DB_AVAILABLE = False
         return False
-    DB_AVAIABLE = True
+    DB_AVAILABLE = True
     return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
 

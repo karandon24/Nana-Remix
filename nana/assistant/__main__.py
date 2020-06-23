@@ -6,11 +6,11 @@ import heroku3
 from pyrogram import Filters, InlineKeyboardMarkup, InlineKeyboardButton, errors, ReplyKeyboardMarkup
 from nana.assistant.help import NANA_IMG
 
-from nana import app, setbot, AdminSettings, DB_AVAIABLE, USERBOT_VERSION, ASSISTANT_VERSION, BotUsername, HEROKU_API, \
+from nana import app, setbot, AdminSettings, DB_AVAILABLE, USERBOT_VERSION, ASSISTANT_VERSION, BotUsername, HEROKU_API, \
     Owner, OwnerName
 from nana.__main__ import reload_userbot, restart_all
 
-if DB_AVAIABLE:
+if DB_AVAILABLE:
     from nana.assistant.database.stickers_db import set_sticker_set, set_stanim_set
     from nana.modules.database.chats_db import get_all_chats
 
@@ -53,8 +53,8 @@ Convert a text to various style, can be used anywhere!
     else:
         start_message += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     start_message += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    start_message += "-> Database: `{}`\n".format(DB_AVAIABLE)
-    if DB_AVAIABLE:
+    start_message += "-> Database: `{}`\n".format(DB_AVAILABLE)
+    if DB_AVAILABLE:
         start_message += f"-> Group joined: `{len(get_all_chats())} groups`\n"
     start_message += f"===================\n"
     start_message += f"`For more about the bot press button down below`"
@@ -104,7 +104,7 @@ async def settings(_client, message):
     else:
         text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     text += "\nJust setup what you need here"
     if not me:
@@ -167,7 +167,7 @@ async def start_stop_bot(client, query):
         text = "**⚙️ Welcome to Nana Settings!**\n"
         text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
         text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-        text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+        text += "-> Database: `{}`\n".format(DB_AVAILABLE)
         text += "-> Python: `{}`\n".format(python_version())
         text += "\n✅ Bot was started!"
         list_button = [[InlineKeyboardButton("Stop Bot", callback_data="toggle_startbot"),
@@ -185,7 +185,7 @@ async def start_stop_bot(client, query):
     text = "**⚙️ Welcome to Nana Settings!**\n"
     text += "-> Userbot: `Stopped (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     text += "\n❎ Bot was stopped!"
     list_button = [[InlineKeyboardButton("Stop Bot", callback_data="toggle_startbot"),
@@ -218,7 +218,7 @@ async def reboot_bot(client, query):
     text = "**⚙️ Welcome to Nana Settings!**\n"
     text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     text += "\n✅ Bot was restarted!"
     list_button = [[InlineKeyboardButton("Stop Bot", callback_data="toggle_startbot"),
@@ -245,7 +245,7 @@ async def reboot_heroku(client, query):
     else:
         text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     if not me:
         togglestart = "Start Bot"
@@ -323,7 +323,7 @@ async def back(_client, message):
     else:
         text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     text += "\nJust setup what you need here"
     if not me:
@@ -355,7 +355,7 @@ TODEL = {}
 
 @setbot.on_message(Filters.user(AdminSettings) & Filters.command(["setsticker"]))
 async def get_stickers(_client, message):
-    if not DB_AVAIABLE:
+    if not DB_AVAILABLE:
         await message.edit("Your database is not avaiable!")
         return
     global TEMP_KEYBOARD, USER_SET
@@ -378,7 +378,7 @@ async def get_stickers(_client, message):
 
 @setbot.on_message(Filters.user(AdminSettings) & Filters.command(["setanimation"]))
 async def get_stickers_animation(_client, message):
-    if not DB_AVAIABLE:
+    if not DB_AVAILABLE:
         await message.edit("Your database is not avaiable!")
         return
     global TEMP_KEYBOARD, USER_SET
@@ -400,7 +400,7 @@ async def get_stickers_animation(_client, message):
 # app.read_history("@Stickers")
 
 def get_stickerlist(message):
-    if not DB_AVAIABLE:
+    if not DB_AVAILABLE:
         return
     global TEMP_KEYBOARD, USER_SET
     if message.from_user and message.from_user.id in list(USER_SET):
@@ -412,7 +412,7 @@ def get_stickerlist(message):
 
 @setbot.on_message(get_stickerlist)
 async def set_stickers(client, message):
-    if not DB_AVAIABLE:
+    if not DB_AVAILABLE:
         await message.edit("Your database is not avaiable!")
         return
     global TEMP_KEYBOARD, USER_SET
@@ -439,7 +439,7 @@ async def set_stickers(client, message):
     else:
         text += "-> Userbot: `Running (v{})`\n".format(USERBOT_VERSION)
     text += "-> Assistant: `Running (v{})`\n".format(ASSISTANT_VERSION)
-    text += "-> Database: `{}`\n".format(DB_AVAIABLE)
+    text += "-> Database: `{}`\n".format(DB_AVAILABLE)
     text += "-> Python: `{}`\n".format(python_version())
     text += "\n{}".format(status)
     if not me:
@@ -458,7 +458,7 @@ async def set_stickers(client, message):
 
 @setbot.on_callback_query(dynamic_data_filter("setsticker"))
 async def settings_sticker(_client, message):
-    if not DB_AVAIABLE:
+    if not DB_AVAILABLE:
         await message.edit("Your database is not avaiable!")
         return
     global TEMP_KEYBOARD, USER_SET
